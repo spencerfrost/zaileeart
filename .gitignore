@@ -56,3 +56,4 @@ coverage/
 *.pid
 *.seed
 *.pid.lock
+generate_tree.py

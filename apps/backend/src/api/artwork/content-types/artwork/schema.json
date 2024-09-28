@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "artworks",
+  "info": {
+    "singularName": "artwork",
+    "pluralName": "artworks",
+    "displayName": "Artwork"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Year": {
+      "type": "integer"
+    },
+    "Medium": {
+      "type": "string"
+    },
+    "Dimensions": {
+      "type": "string"
+    },
+    "Image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Availability": {
+      "type": "enumeration",
+      "enum": [
+        "Available",
+        "Sold",
+        "On Exhibition"
+      ]
+    },
+    "Price": {
+      "type": "decimal"
+    }
+  }
+}
