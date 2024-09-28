@@ -1,0 +1,13 @@
+{
+  "name": "zaileeart",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend develop",
+    "build:frontend": "pnpm --filter frontend build",
+    "build:backend": "pnpm --filter backend build",
+    "start:frontend": "pnpm --filter frontend start",
+    "start:backend": "pnpm --filter backend start"
+  }
+}
