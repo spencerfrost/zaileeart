@@ -54,7 +54,7 @@ jobs:
           command: |
             scp -vr /home/circleci/project/apps/frontend/.output/* $SERVER_USER@$SERVER_IP:$SERVER_DIR/frontend
             scp -vr /home/circleci/project/apps/backend/dist/* /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend
-            ssh $SERVER_USER@$SERVER_IP "cd $SERVER_DIR/backend && pnpm install --production && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"
+            ssh $SERVER_USER@$SERVER_IP "cd $SERVER_DIR/backend && npm install --production && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"
 
 workflows:
   build-and-deploy:
