@@ -1,0 +1,58 @@
+version: 2.1
+orbs:
+  node: circleci/node@6.1.0
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: pnpm
+      - run:
+          name: Install Dependencies
+          command: pnpm install
+      - run:
+          name: Build Frontend
+          command: pnpm run build:frontend
+      - run:
+          name: Build Backend
+          command: pnpm run build:backend
+      - persist_to_workspace:
+          root: .
+          paths:
+            - apps/frontend/.output
+            - apps/backend/dist
+            - apps/backend/package.json
+            - pnpm-lock.yaml
+
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    steps:
+      - attach_workspace:
+          at: /home/circleci/project
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:g4/poytytTBgsZHuaEuvkSFW7DzZ9f8NQefxP6e40nM"
+      - run:
+          name: Deploy to Server
+          command: |
+            scp -r /home/circleci/project/apps/frontend/.output/* $SERVER_USER@$SERVER_IP:$SERVER_DIR/frontend
+            scp -r /home/circleci/project/apps/backend/dist/* /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend
+            ssh $SERVER_USER@$SERVER_IP "cd $SERVER_DIR/backend && pnpm install --production && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
