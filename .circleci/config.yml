@@ -54,8 +54,8 @@ jobs:
       - run:
           name: Deploy to Server
           command: |
-            rsync -avzc --delete --exclude='.env*' --exclude='ecosystem.config.js' /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/frontend/
-            rsync -avzc --delete --exclude='.env*' --exclude='ecosystem.config.js' /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
+            rsync -avzc --delete /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/frontend/
+            rsync -avzc --delete --exclude='public/uploads' /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
             rsync -avzc /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
             ssh $SERVER_USER@$SERVER_IP 'bash -l -c "cd /var/www/zaileeart/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --production || npm install --production && pm2 restart /var/www/zaileeart/ecosystem.config.cjs && sudo systemctl restart nginx"'
 
