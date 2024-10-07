@@ -1,18 +1,7 @@
 version: 2.1
-setup: true
-orbs:
-  path-filtering: circleci/path-filtering@1.1.0
-
-parameters:
-  run-frontend-workflow:
-    type: boolean
-    default: false
-  run-backend-workflow:
-    type: boolean
-    default: false
 
 jobs:
-  build-frontend:
+  build:
     docker:
       - image: cimg/node:lts
     resource_class: large
@@ -21,70 +10,35 @@ jobs:
       - restore_cache:
           name: Restore pnpm Package Cache
           keys:
-            - pnpm-packages-frontend-{{ checksum "apps/frontend/pnpm-lock.yaml" }}
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Install pnpm package manager
           command: |
-            corepack enable
+            sudo corepack enable
             corepack prepare pnpm@latest-9 --activate
             pnpm config set store-dir .pnpm-store
       - run:
-          name: Install Frontend Dependencies
+          name: Install Dependencies
           command: |
-            cd apps/frontend
             pnpm install
       - run:
           name: Build Frontend
-          command: |
-            cd apps/frontend
-            pnpm run build
+          command: pnpm run build:frontend
+      - run:
+          name: Build Backend
+          command: pnpm run build:backend
       - save_cache:
           name: Save pnpm Package Cache
-          key: pnpm-packages-frontend-{{ checksum "apps/frontend/pnpm-lock.yaml" }}
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - .pnpm-store
       - persist_to_workspace:
           root: .
           paths:
             - apps/frontend/.output
-
-  build-backend:
-    docker:
-      - image: cimg/node:lts
-    resource_class: large
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore pnpm Package Cache
-          keys:
-            - pnpm-packages-backend-{{ checksum "apps/backend/pnpm-lock.yaml" }}
-      - run:
-          name: Install pnpm package manager
-          command: |
-            corepack enable
-            corepack prepare pnpm@latest-9 --activate
-            pnpm config set store-dir .pnpm-store
-      - run:
-          name: Install Backend Dependencies
-          command: |
-            cd apps/backend
-            pnpm install
-      - run:
-          name: Build Backend
-          command: |
-            cd apps/backend
-            pnpm run build
-      - save_cache:
-          name: Save pnpm Package Cache
-          key: pnpm-packages-backend-{{ checksum "apps/backend/pnpm-lock.yaml" }}
-          paths:
-            - .pnpm-store
-      - persist_to_workspace:
-          root: .
-          paths:
             - apps/backend/dist
             - apps/backend/package.json
-            - apps/backend/pnpm-lock.yaml
+            - pnpm-lock.yaml
 
   deploy:
     machine:
@@ -106,35 +60,15 @@ jobs:
             ssh $SERVER_USER@$SERVER_IP 'bash -l -c "cd /var/www/zaileeart/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --prod || npm install --production && pm2 restart zaileeart-backend && sudo systemctl restart nginx"'
 
 workflows:
-  check-updated-files:
+  build-and-deploy:
     jobs:
-      - path-filtering/filter:
-          name: check-updated-files
-          mapping: |
-            apps/frontend/.* run-frontend-workflow true
-            apps/backend/.* run-backend-workflow true
-          base-revision: master
-          config-path: .circleci/continue-config.yml
-
-  # The following workflows will be executed in parallel if the corresponding flags are set
-  frontend-workflow:
-    when: << pipeline.parameters.run-frontend-workflow >>
-    jobs:
-      - build-frontend
-      - deploy:
-          requires:
-            - build-frontend
+      - build:
           filters:
             branches:
               only: master
-
-  backend-workflow:
-    when: << pipeline.parameters.run-backend-workflow >>
-    jobs:
-      - build-backend
       - deploy:
           requires:
-            - build-backend
+            - build
           filters:
             branches:
               only: master
