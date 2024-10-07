@@ -35,7 +35,7 @@ jobs:
           at: /home/circleci/project
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:g4/poytytTBgsZHuaEuvkSFW7DzZ9f8NQefxP6e40nM"
+            - "SHA256:6+qHFQDbqCYFzFzHfY7fpBaly2rEB83DUxswOGj6dkI"
       - run:
           name: Deploy to Server
           command: |
