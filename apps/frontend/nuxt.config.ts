@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
   strapi: {
-    url: process.env.STRAPI_URL ?? 'http://localhost:1338',
+    url: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
     prefix: '/api',
     version: 'v4',
     cookie: {},
@@ -17,7 +17,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      strapiURL: process.env.STRAPI_URL ?? 'http://localhost:1338',
+      strapiURL: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
+      environment: process.env.NODE_ENV ?? 'development',
     },
   },
   build: {
