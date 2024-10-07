@@ -54,10 +54,11 @@ jobs:
       - run:
           name: Deploy to Server
           command: |
-            rsync -avzc --delete /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:$SERVER_DIR/frontend/
-            rsync -avzc --delete /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend/
-            rsync -avzc /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend/
-            ssh $SERVER_USER@$SERVER_IP 'bash -l -c "export SERVER_DIR='$SERVER_DIR' && cd $SERVER_DIR/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --prod || npm install --omit=dev && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"'
+            rsync -avzc --delete /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/frontend/
+            rsync -avzc --delete /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
+            rsync -avzc /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
+            ssh $SERVER_USER@$SERVER_IP 'bash -l -c "cd /var/www/zaileeart/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --prod || npm install --production && pm2 restart /var/www/zaileeart/backend/ecosystem.config.js && sudo systemctl restart nginx"'
+
 workflows:
   build-and-deploy:
     jobs:
