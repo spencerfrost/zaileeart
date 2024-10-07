@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   ],
   strapi: {
     url: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
-    prefix: '/api',
+    // prefix: '/api',
     version: 'v4',
     cookie: {},
     cookieName: 'strapi_jwt'
