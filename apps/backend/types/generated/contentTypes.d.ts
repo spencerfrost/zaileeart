@@ -497,11 +497,16 @@ export interface ApiArtistProfileArtistProfile extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Schema.Attribute.String;
-    Biography: Schema.Attribute.Text;
-    Picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Contact: Schema.Attribute.Email;
-    Socials: Schema.Attribute.Component<'common.social-media-link', true>;
+    name: Schema.Attribute.String;
+    picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    contact: Schema.Attribute.Email;
+    socials: Schema.Attribute.Component<'common.social-media-link', true>;
+    biography: Schema.Attribute.RichText;
+    short_bio: Schema.Attribute.RichText;
+    pronouns: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    exhibitions: Schema.Attribute.Component<'common.exhibitions', true>;
+    artist_statement: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -523,24 +528,25 @@ export interface ApiArtworkArtwork extends Struct.CollectionTypeSchema {
     singularName: 'artwork';
     pluralName: 'artworks';
     displayName: 'Artwork';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Schema.Attribute.String;
-    Description: Schema.Attribute.Text;
-    Year: Schema.Attribute.Integer;
-    Medium: Schema.Attribute.String;
-    Dimensions: Schema.Attribute.String;
-    Image: Schema.Attribute.Media<
+    name: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    year: Schema.Attribute.Integer;
+    medium: Schema.Attribute.String;
+    dimensions: Schema.Attribute.String;
+    images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    Availability: Schema.Attribute.Enumeration<
+    availability: Schema.Attribute.Enumeration<
       ['Available', 'Sold', 'On Exhibition']
     >;
-    Price: Schema.Attribute.Decimal;
+    price: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -562,18 +568,18 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
     singularName: 'blog-post';
     pluralName: 'blog-posts';
     displayName: 'Blog Post';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Schema.Attribute.String;
-    Content: Schema.Attribute.Blocks;
-    Images: Schema.Attribute.Media<
+    title: Schema.Attribute.String;
+    images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    Published: Schema.Attribute.Date;
+    content: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

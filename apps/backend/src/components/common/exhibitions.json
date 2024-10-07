@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_common_exhibitions",
+  "info": {
+    "displayName": "exhibitions"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "opening_date": {
+      "type": "date"
+    },
+    "closing_date": {
+      "type": "date"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Solo",
+        "Group",
+        "Duo",
+        "Juried",
+        "Invitational",
+        "Biennale",
+        "Retrospective",
+        "Online"
+      ]
+    },
+    "venue": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "curator": {
+      "type": "string"
+    },
+    "artworks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::artwork.artwork"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

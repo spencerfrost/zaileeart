@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen memphis-bg-grid">
     <Header class="mb-8" />
     <main class="flex-grow">
       <slot></slot>

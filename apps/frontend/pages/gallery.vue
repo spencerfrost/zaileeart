@@ -16,13 +16,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useStrapi } from '~/composables/useStrapi'
+import { ref } from 'vue'
+import { useStrapi } from '#imports'
 
-const strapi = useStrapi()
+const { find } = useStrapi()
 const artworks = ref([])
 
-onMounted(async () => {
-  artworks.value = await strapi.getEntries('artworks')
-})
+async function fetchArtworks() {
+  try {
+    const response = await find('artworks', { populate: '*' })
+    artworks.value = response.data
+  } catch (error) {
+    console.error('Error fetching artworks:', error)
+  }
+}
+
+fetchArtworks()
 </script>

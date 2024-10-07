@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     prefix: '/api',
     version: 'v4',
     cookie: {},
+    cookieName: 'strapi_jwt'
   },
   runtimeConfig: {
     public: {
@@ -45,5 +46,16 @@ export default defineNuxtConfig({
     exposeConfig: false,
     injectPosition: 0,
     viewer: true,
+  },
+  routeRules: {
+    '/': { swr: 3600 }, // Cache for 1 hour
+    '/about': { swr: 3600 },
+    '/gallery': { swr: 1800 }, // Cache for 30 minutes
+    '/artworks/**': { swr: true }, // Use default SWR behavior
+  },
+  nitro: {
+    routeRules: {
+      '/**': { swr: 3600 } // Global SWR fallback
+    }
   },
 })

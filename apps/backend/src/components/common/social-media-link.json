@@ -1,14 +1,15 @@
 {
   "collectionName": "components_common_social_media_links",
   "info": {
-    "displayName": "Social Media Link"
+    "displayName": "Social Media Link",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "Platform": {
+    "platform": {
       "type": "string"
     },
-    "Link": {
+    "link": {
       "type": "string"
     }
   }

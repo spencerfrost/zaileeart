@@ -4,39 +4,43 @@
   "info": {
     "singularName": "artwork",
     "pluralName": "artworks",
-    "displayName": "Artwork"
+    "displayName": "Artwork",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "text"
     },
-    "Year": {
-      "type": "integer"
+    "year": {
+      "type": "integer",
+      "required": false,
+      "nullable": true
     },
-    "Medium": {
+    "medium": {
       "type": "string"
     },
-    "Dimensions": {
+    "dimensions": {
       "type": "string"
     },
-    "Image": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
-    "Availability": {
+    "availability": {
       "type": "enumeration",
       "enum": [
         "Available",
@@ -44,7 +48,7 @@
         "On Exhibition"
       ]
     },
-    "Price": {
+    "price": {
       "type": "decimal"
     }
   }

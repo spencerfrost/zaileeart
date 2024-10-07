@@ -39,9 +39,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useStrapi } from '~/composables/useStrapi'
+import { useStrapi } from '#imports'
 
-const strapi = useStrapi()
+const { create } = useStrapi()
 const form = ref({
   name: '',
   email: '',
@@ -50,7 +50,7 @@ const form = ref({
 
 const submitForm = async () => {
   try {
-    await strapi.createEntry('contact-submissions', form.value)
+    await create('contact-submissions', { data: form.value })
     alert('Message sent successfully!')
     form.value = { name: '', email: '', message: '' }
   } catch (error) {

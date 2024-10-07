@@ -9,7 +9,6 @@
     "build:backend": "pnpm --filter backend build",
     "start:frontend": "pnpm --filter frontend start",
     "start:backend": "pnpm --filter backend start",
-    "cleanup:frontend": "pnpm --filter frontend cleanup",
-    "install:all": "pnpm install"
+    "cleanup:frontend": "pnpm --filter frontend cleanup"
   }
 }

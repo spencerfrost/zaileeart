@@ -12,13 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Biography": {
-      "type": "text"
-    },
-    "Picture": {
+    "picture": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -29,13 +26,34 @@
         "audios"
       ]
     },
-    "Contact": {
+    "contact": {
       "type": "email"
     },
-    "Socials": {
+    "socials": {
       "type": "component",
       "repeatable": true,
       "component": "common.social-media-link"
+    },
+    "biography": {
+      "type": "richtext"
+    },
+    "short_bio": {
+      "type": "richtext"
+    },
+    "pronouns": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "exhibitions": {
+      "displayName": "exhibitions",
+      "type": "component",
+      "repeatable": true,
+      "component": "common.exhibitions"
+    },
+    "artist_statement": {
+      "type": "text"
     }
   }
 }
