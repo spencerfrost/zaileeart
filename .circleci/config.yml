@@ -52,9 +52,9 @@ jobs:
       - run:
           name: Deploy to Server
           command: |
-            scp -vr /home/circleci/project/apps/frontend/.output/* $SERVER_USER@$SERVER_IP:$SERVER_DIR/frontend
-            scp -vr /home/circleci/project/apps/backend/dist/* /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend
-            ssh $SERVER_USER@$SERVER_IP "cd $SERVER_DIR/backend && npm install --omit=dev && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"
+            scp -r /home/circleci/project/apps/frontend/.output/* $SERVER_USER@$SERVER_IP:$SERVER_DIR/frontend
+            scp -r /home/circleci/project/apps/backend/dist/* /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:$SERVER_DIR/backend
+            ssh $SERVER_USER@$SERVER_IP "cd $SERVER_DIR/backend && npm cache clean --force && npm install --omit=dev && pm2 restart $SERVER_DIR/backend/ecosystem.config.js && sudo systemctl restart nginx"
 
 workflows:
   build-and-deploy:
