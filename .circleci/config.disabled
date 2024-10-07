@@ -33,9 +33,6 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci/project
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:g4/poytytTBgsZHuaEuvkSFW7DzZ9f8NQefxP6e40nM"
       - run:
           name: Deploy to Server
           command: |
