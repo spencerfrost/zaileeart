@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useStrapi } from '~/composables/useStrapi'
+import { useStrapiApi } from '~/composables/useStrapi'
 
 export const useBlogStore = defineStore('blog', {
   state: () => ({
@@ -8,11 +8,11 @@ export const useBlogStore = defineStore('blog', {
   }),
   actions: {
     async fetchPosts() {
-      const strapi = useStrapi()
+      const strapi = useStrapiApi()
       this.posts = await strapi.getEntries('blog-posts')
     },
     async fetchPost(id) {
-      const strapi = useStrapi()
+      const strapi = useStrapiApi()
       this.currentPost = await strapi.getEntry('blog-posts', id)
     }
   }

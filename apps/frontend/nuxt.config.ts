@@ -5,16 +5,8 @@ export default defineNuxtConfig({
   ssr: true,
   modules: [
     '@pinia/nuxt',
-    '@nuxtjs/strapi',
     '@nuxtjs/tailwindcss',
   ],
-  strapi: {
-    url: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
-    prefix: '/api',
-    version: 'v4',
-    cookie: {},
-    cookieName: 'strapi_jwt'
-  },
   runtimeConfig: {
     public: {
       strapiURL: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
@@ -25,9 +17,6 @@ export default defineNuxtConfig({
     transpile: ['@heroicons/vue'],
   },
   components: true,
-  vite: {
-    // Add any Vite-specific configurations here
-  },
   app: {
     head: {
       title: 'Artist Portfolio',
@@ -57,6 +46,17 @@ export default defineNuxtConfig({
   nitro: {
     routeRules: {
       '/**': { swr: 3600 } // Global SWR fallback
-    }
+    },
+    compressPublicAssets: true,
+  },
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+      },
+    },
+  },
+  experimental: {
+    payloadExtraction: false,
   },
 })

@@ -1,8 +1,7 @@
-import '@nuxt/types'
-import { Strapi } from '@nuxtjs/strapi'
+import { useStrapiApi } from '~/composables/useStrapi'
 
 declare module '#app' {
   interface NuxtSSRContext {
-    strapi: Strapi
+    strapi: ReturnType<typeof useStrapiApi>
   }
 }
