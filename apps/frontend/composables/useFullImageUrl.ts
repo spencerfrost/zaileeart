@@ -11,10 +11,6 @@ export function useFullImageUrl() {
     }
     
     // if process.env.NODE_ENV is 'production', add the 'public' prefix
-    if (config.public.environment === 'production') {
-      return `${config.public.strapiURL}/public${path}`
-    } else {
-      return `${config.public.strapiURL}${path}`
-    }
+    return `${config.public.strapiURL}${path}`
   }
 }
