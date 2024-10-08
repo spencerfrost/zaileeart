@@ -11,7 +11,6 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      enabled: true,
       headers: '*',
       origin: ['https://zaileeart.mrspinn.ca']
     }
