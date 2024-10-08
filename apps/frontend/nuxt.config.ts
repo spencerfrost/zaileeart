@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      strapiURL: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1338',
+      strapiURL: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'https://zaileeart.mrspinn.ca/server',
       environment: process.env.NODE_ENV ?? 'development',
     },
   },
