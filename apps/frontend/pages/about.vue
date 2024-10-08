@@ -20,7 +20,7 @@
     </template>
 
     <template v-else-if="artistProfile">
-      <h1 class="text-4xl font-memphis text-memphis-yellow memphis-text-shadow mb-6 text-center">
+      <h1 class="text-4xl font-memphis text-dutch-white memphis-text-shadow mb-6 text-center">
         About {{ artistProfile.name }}
       </h1>
 
@@ -39,7 +39,7 @@
 
         <!-- Biography -->
         <div
-          class="bg-white p-6 rounded-lg shadow-lg mb-8 text-memphis-black leading-relaxed"
+          class="bg-white p-6 rounded-lg shadow-lg mb-8 text-rich-black leading-relaxed"
         >
           <p
             v-if="artistProfile.biography"
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Connect with Me Section -->
-        <div class="bg-memphis-blue p-6 rounded-lg shadow-lg">
+        <div class="bg-air-blue p-6 rounded-lg shadow-lg">
           <h2 class="text-2xl font-memphis text-white memphis-text-shadow mb-4">
             Connect with me:
           </h2>
@@ -59,7 +59,7 @@
               :href="link.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-memphis-yellow text-memphis-black px-4 py-2 rounded-full font-memphis hover:bg-memphis-orange hover:scale-105 transition-transform duration-300"
+              class="bg-dutch-white text-rich-black px-4 py-2 rounded-full font-memphis hover:bg-memphis-orange hover:scale-105 transition-transform duration-300"
             >
               {{ link.platform }}
             </a>
@@ -77,9 +77,5 @@ import { useStrapi } from "~/composables/useStrapi";
 const getFullImageUrl = useFullImageUrl();
 const { find } = useStrapi();
 
-const {
-  data: artistProfile,
-  status,
-  error,
-} = await find("artist-profile", { populate: "*" });
+const { data: artistProfile, status, error } = await find("artist-profile", { populate: "*" });
 </script>

@@ -11,10 +11,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'memphis-yellow': '#FFD300',
-        'memphis-pink': '#FF6B6B',
-        'memphis-blue': '#4ECDC4',
-        'memphis-black': '#2F2F2F',
+        'dutch-white': '#E8DCB9',
+        'mimi-pink': '#F2CEE6',
+        'air-blue': '#7798AB',
+        'rich-black': '#0D1B1E',
       },
       fontFamily: {
         'memphis': ['Comic Sans MS', 'Comic Sans', 'cursive'], 

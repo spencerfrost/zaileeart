@@ -1,6 +1,6 @@
 <template>
   <section class="mb-12">
-    <h2 class="text-3xl font-bold text-memphis-black mb-6">Featured Works</h2>
+    <h2 class="text-3xl font-bold text-rich-black mb-6">Featured Works</h2>
     <div v-if="status === 'pending'" class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Loading skeleton here -->
     </div>
@@ -12,7 +12,7 @@
         v-for="artwork in artworks" 
         :key="artwork.id" 
         :to="{ path: `/artworks/${artwork.id}` }"
-        class="bg-memphis-blue rounded-2xl p-4 text-white hover:bg-memphis-pink transition-colors"
+        class="hover:bg-mimi-pink rounded-2xl p-4 text-rich-black bg-dutch-white transition-colors"
       >
         <img 
           v-if="artwork.images[0].url"

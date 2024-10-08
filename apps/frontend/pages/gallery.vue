@@ -1,6 +1,6 @@
 <template>
   <div class="bg-memphis-pattern min-h-screen p-8">
-    <h1 class="text-4xl font-memphis text-memphis-pink memphis-text-shadow mb-6">Gallery</h1>
+    <h1 class="text-4xl font-memphis text-mimi-pink memphis-text-shadow mb-6">Gallery</h1>
     
     <!-- Filtering and Sorting Controls -->
     <div class="mb-6 flex flex-wrap gap-4">
@@ -56,13 +56,13 @@
     </ClientOnly>
 
     <div v-if="pending" class="text-center mt-4">
-      <p class="text-2xl font-memphis text-memphis-blue memphis-text-shadow">Loading artworks...</p>
+      <p class="text-2xl font-memphis text-air-blue memphis-text-shadow">Loading artworks...</p>
     </div>
     <div v-if="!pending && !canLoadMore" class="text-center mt-4">
-      <p class="text-2xl font-memphis text-memphis-blue memphis-text-shadow">No more artworks to load.</p>
+      <p class="text-2xl font-memphis text-air-blue memphis-text-shadow">No more artworks to load.</p>
     </div>
     <div v-if="!pending && canLoadMore" class="text-center mt-4">
-      <button @click="loadMore" class="bg-memphis-yellow text-memphis-black px-6 py-2 rounded-full hover:bg-memphis-blue transition-colors">
+      <button @click="loadMore" class="bg-dutch-white text-rich-black px-6 py-2 rounded-full hover:bg-air-blue transition-colors">
         Load More
       </button>
     </div>

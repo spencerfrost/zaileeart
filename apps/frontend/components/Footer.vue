@@ -1,21 +1,19 @@
 <template>
-  <footer class="bg-memphis-blue p-8 mt-12">
+  <footer class="bg-air-blue p-8 mt-12">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between items-center">
-        <!-- Logo or Site Name -->
         <div class="mb-4 md:mb-0">
-          <h2 class="text-3xl font-memphis text-memphis-yellow memphis-text-shadow">
+          <h2 class="text-3xl font-memphis text-white memphis-text-shadow">
             Zailee Art
           </h2>
         </div>
 
-        <!-- Navigation Links -->
         <nav class="mb-4 md:mb-0">
           <ul class="flex flex-wrap gap-4">
             <li v-for="link in links" :key="link.to">
               <NuxtLink 
                 :to="link.to" 
-                class="text-white hover:text-memphis-yellow font-memphis transition-colors duration-300"
+                class="text-white hover:text-dutch-white font-memphis transition-colors duration-300"
               >
                 {{ link.text }}
               </NuxtLink>
@@ -23,40 +21,37 @@
           </ul>
         </nav>
 
-        <!-- Social Media Links -->
         <div class="flex gap-4">
           <a 
-            v-for="social in socialLinks" 
+            v-for="social in artistProfile.socials" 
             :key="social.name"
             :href="social.url" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="bg-memphis-yellow text-memphis-blue p-2 rounded-full hover:memphis-rotate transition-transform duration-300"
+            class="bg-dutch-white text-air-blue p-2 rounded-full hover:memphis-rotate transition-transform duration-300 cursor-pointer"
           >
-            <!-- You can replace these with actual icons -->
             <span class="sr-only">{{ social.name }}</span>
             <div class="w-6 h-6 flex items-center justify-center font-bold">
-              {{ social.icon }}
+              <component :is="getIcon(social.link)" />
             </div>
           </a>
         </div>
       </div>
 
-      <!-- Copyright -->
       <div class="mt-8 pt-4 border-t border-white/20 text-center text-white font-memphis">
         <p>&copy; {{ new Date().getFullYear() }} Zailee Art. All rights reserved.</p>
-      </div>
-
-      <!-- Memphis Design Element -->
-      <div class="mt-4 flex justify-center">
-        <div class="w-16 h-16 bg-memphis-pink rounded-full memphis-border transform -rotate-12"></div>
-        <div class="w-16 h-16 bg-memphis-yellow rounded-memphis memphis-border transform rotate-12 -ml-4"></div>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-vue-next';
+import { useStrapi } from '~/composables/useStrapi';
+
+const strapi = useStrapi();
+const { data: artistProfile } = await strapi.find('artist-profile', { populate: "*" });
+
 const links = [
   { to: '/', text: 'Home' },
   { to: '/gallery', text: 'Gallery' },
@@ -64,9 +59,18 @@ const links = [
   { to: '/contact', text: 'Contact' },
 ];
 
-const socialLinks = [
-  { name: 'Facebook', url: '#', icon: 'f' },
-  { name: 'Twitter', url: '#', icon: 't' },
-  { name: 'Instagram', url: '#', icon: 'i' },
-];
+const getIcon = (link) => {
+  const socialLinkSplit = link.split('.');
+  if (socialLinkSplit.includes('instagram')) {
+    return Instagram;
+  } else if (socialLinkSplit.includes('facebook')) {
+    return Facebook;
+  } else if (socialLinkSplit.includes('twitter')) {
+    return Twitter;
+  } else if (socialLinkSplit.includes('linkedin')) {
+    return Linkedin;
+  }
+  
+  return '';
+};
 </script>

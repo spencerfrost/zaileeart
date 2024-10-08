@@ -53,15 +53,15 @@ importers:
 
   apps/frontend:
     dependencies:
-      '@nuxtjs/strapi':
-        specifier: ^1.12.0
-        version: 1.12.0(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)
       '@pinia/nuxt':
         specifier: ^0.5.4
         version: 0.5.4(magicast@0.3.5)(rollup@4.22.5)(typescript@5.6.2)(vue@3.5.11(typescript@5.6.2))(webpack-sources@3.2.3)
       '@yeger/vue-masonry-wall':
         specifier: ^5.0.15
         version: 5.0.15(vue@3.5.11(typescript@5.6.2))
+      lucide-vue-next:
+        specifier: ^0.451.0
+        version: 0.451.0(vue@3.5.11(typescript@5.6.2))
       nuxt:
         specifier: ^3.13.0
         version: 3.13.2(@parcel/watcher@2.4.1)(@types/node@22.7.4)(better-sqlite3@9.4.3)(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.22.5)(terser@5.34.1)(typescript@5.6.2)(vite@5.4.8(@types/node@22.7.4)(terser@5.34.1))(webpack-sources@3.2.3)
@@ -1394,9 +1394,6 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
       vue: ^3.3.4
-
-  '@nuxtjs/strapi@1.12.0':
-    resolution: {integrity: sha512-pysxYW5SPQaB6H7G72wO2qz4Rl7DakuPUthNweEvL3ERK5O3qMZ97mIm+Pdwvb3/H0ntFDJSjx08YRWjjuV7hg==}
 
   '@nuxtjs/tailwindcss@6.12.1':
     resolution: {integrity: sha512-UKmaPRVpxlFqLorhL6neEba2tySlsj6w6yDb7jzS6A0AAjyBQ6k3BQqWO+AaTy2iQLX7eR+1yj3/w43HzY8RtA==}
@@ -5673,6 +5670,11 @@ packages:
   lru-memoizer@2.3.0:
     resolution: {integrity: sha512-GXn7gyHAMhO13WSKrIiNfztwxodVsP8IoZ3XfrJV4yH2x0/OeTO/FIaAHTY5YekdGgW94njfuKmyyt1E0mR6Ug==}
 
+  lucide-vue-next@0.451.0:
+    resolution: {integrity: sha512-EJ3tDuZqFdps6wt4hhqJ/EzCE7KbhClkncvnqXiVE6Ni5jzA5XS1Ut5yCGXjO/GBIe39t3qmNRQIRszqdCDuBA==}
+    peerDependencies:
+      vue: '>=3.0.1'
+
   lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
 
@@ -9912,19 +9914,6 @@ snapshots:
       - vue-tsc
       - webpack-sources
 
-  '@nuxtjs/strapi@1.12.0(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)':
-    dependencies:
-      '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)
-      defu: 6.1.4
-      graphql: 16.9.0
-      qs: 6.13.0
-      ufo: 1.5.4
-    transitivePeerDependencies:
-      - magicast
-      - rollup
-      - supports-color
-      - webpack-sources
-
   '@nuxtjs/tailwindcss@6.12.1(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)':
     dependencies:
       '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)
@@ -10812,7 +10801,7 @@ snapshots:
       '@strapi/design-system': 2.0.0-rc.11(@babel/runtime@7.25.6)(@codemirror/autocomplete@6.18.1(@codemirror/language@6.10.3)(@codemirror/state@6.4.1)(@codemirror/view@6.34.1)(@lezer/common@1.2.1))(@codemirror/language@6.10.3)(@codemirror/lint@6.8.2)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.34.1)(@strapi/icons@2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.0)(@types/react@18.3.10)(codemirror@5.65.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/permissions': 5.0.1
-      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/typescript-utils': 5.0.1
       '@strapi/utils': 5.0.1
       '@testing-library/dom': 10.1.0
@@ -11005,7 +10994,7 @@ snapshots:
       '@strapi/database': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)
       '@strapi/design-system': 2.0.0-rc.11(@babel/runtime@7.25.6)(@codemirror/autocomplete@6.18.1(@codemirror/language@6.10.3)(@codemirror/state@6.4.1)(@codemirror/view@6.34.1)(@lezer/common@1.2.1))(@codemirror/language@6.10.3)(@codemirror/lint@6.8.2)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.34.1)(@strapi/icons@2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.0)(@types/react@18.3.10)(codemirror@5.65.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/utils': 5.0.1
       date-fns: 2.30.0
       date-fns-tz: 2.0.1(date-fns@2.30.0)
@@ -11543,7 +11532,7 @@ snapshots:
       '@strapi/pack-up': 5.0.0(@swc/helpers@0.5.13)(@types/node@20.16.10)(debug@4.3.4)(terser@5.34.1)
       '@strapi/permissions': 5.0.1
       '@strapi/review-workflows': 5.0.1(6rcwquwenpsneprl52ck2e6ruq)
-      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/typescript-utils': 5.0.1
       '@strapi/upload': 5.0.1(xvush2selimmwedflyort2pv4m)
       '@strapi/utils': 5.0.1
@@ -11659,34 +11648,6 @@ snapshots:
       koa-body: 6.0.1
       node-schedule: 2.1.1
       typedoc: 0.25.10(typescript@5.2.2)
-      typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.6.2)))(typedoc@0.25.10(typescript@5.6.2))
-      typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.6.2))
-    transitivePeerDependencies:
-      - '@types/node'
-      - better-sqlite3
-      - mysql
-      - mysql2
-      - pg
-      - pg-native
-      - sqlite3
-      - supports-color
-      - tedious
-      - typescript
-
-  '@strapi/types@5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)(typescript@5.3.2)':
-    dependencies:
-      '@casl/ability': 6.5.0
-      '@koa/cors': 5.0.0
-      '@koa/router': 12.0.1
-      '@strapi/database': 5.0.1(@types/node@20.16.10)(better-sqlite3@9.4.3)(pg@8.13.0)
-      '@strapi/logger': 5.0.1
-      '@strapi/permissions': 5.0.1
-      '@strapi/utils': 5.0.1
-      commander: 8.3.0
-      koa: 2.15.2
-      koa-body: 6.0.1
-      node-schedule: 2.1.1
-      typedoc: 0.25.10(typescript@5.3.2)
       typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.6.2)))(typedoc@0.25.10(typescript@5.6.2))
       typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.6.2))
     transitivePeerDependencies:
@@ -15560,6 +15521,10 @@ snapshots:
       lodash.clonedeep: 4.5.0
       lru-cache: 6.0.0
 
+  lucide-vue-next@0.451.0(vue@3.5.11(typescript@5.6.2)):
+    dependencies:
+      vue: 3.5.11(typescript@5.6.2)
+
   lunr@2.3.9: {}
 
   luxon@3.5.0: {}
@@ -18142,14 +18107,6 @@ snapshots:
       minimatch: 9.0.5
       shiki: 0.14.7
       typescript: 5.2.2
-
-  typedoc@0.25.10(typescript@5.3.2):
-    dependencies:
-      lunr: 2.3.9
-      marked: 4.3.0
-      minimatch: 9.0.5
-      shiki: 0.14.7
-      typescript: 5.3.2
 
   typedoc@0.25.10(typescript@5.6.2):
     dependencies:

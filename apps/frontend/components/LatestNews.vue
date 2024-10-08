@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-memphis-blue rounded-3xl p-6 text-white">
+  <section class="bg-mimi-pink rounded-3xl p-6 text-rich-black">
     <h2 class="text-2xl font-bold mb-2">Latest News</h2>
     <div v-if="status === 'pending'">
       <!-- Loading skeleton here -->

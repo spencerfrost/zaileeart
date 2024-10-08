@@ -1,36 +1,36 @@
 <template>
   <form @submit.prevent="submitForm" class="space-y-6">
     <div>
-      <label for="name" class="block text-memphis-blue font-memphis mb-2">Name:</label>
+      <label for="name" class="block text-air-blue font-memphis mb-2">Name:</label>
       <input 
         id="name" 
         v-model="form.name" 
         required
-        class="w-full p-2 border-2 border-memphis-black rounded-memphis focus:outline-none focus:border-memphis-pink"
+        class="w-full p-2 border-2 border-rich-black rounded-memphis focus:outline-none focus:border-mimi-pink"
       >
     </div>
     <div>
-      <label for="email" class="block text-memphis-blue font-memphis mb-2">Email:</label>
+      <label for="email" class="block text-air-blue font-memphis mb-2">Email:</label>
       <input 
         id="email" 
         v-model="form.email" 
         type="email" 
         required
-        class="w-full p-2 border-2 border-memphis-black rounded-memphis focus:outline-none focus:border-memphis-pink"
+        class="w-full p-2 border-2 border-rich-black rounded-memphis focus:outline-none focus:border-mimi-pink"
       >
     </div>
     <div>
-      <label for="message" class="block text-memphis-blue font-memphis mb-2">Message:</label>
+      <label for="message" class="block text-air-blue font-memphis mb-2">Message:</label>
       <textarea 
         id="message" 
         v-model="form.message" 
         required
-        class="w-full p-2 border-2 border-memphis-black rounded-memphis focus:outline-none focus:border-memphis-pink h-32"
+        class="w-full p-2 border-2 border-rich-black rounded-memphis focus:outline-none focus:border-mimi-pink h-32"
       ></textarea>
     </div>
     <button 
       type="submit"
-      class="bg-memphis-yellow text-memphis-black px-6 py-2 rounded-memphis font-memphis memphis-border hover:memphis-rotate transition-transform duration-300"
+      class="bg-dutch-white text-rich-black px-6 py-2 rounded-memphis font-memphis memphis-border hover:memphis-rotate transition-transform duration-300"
     >
       Send Message
     </button>

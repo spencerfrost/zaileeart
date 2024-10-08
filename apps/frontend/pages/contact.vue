@@ -1,6 +1,6 @@
 <template>
   <div class="bg-memphis-pattern min-h-screen p-8">
-    <h1 class="text-4xl font-memphis text-memphis-pink memphis-text-shadow mb-6">Contact Me</h1>
+    <h1 class="text-4xl font-memphis text-mimi-pink memphis-text-shadow mb-6">Contact Me</h1>
     <div class="memphis-border bg-white rounded-memphis p-6">
       <ContactForm />
     </div>
