@@ -23,6 +23,7 @@
 
         <div class="flex gap-4">
           <a 
+            v-if="artistProfile?.socials.length > 0"
             v-for="social in artistProfile.socials" 
             :key="social.name"
             :href="social.url" 
