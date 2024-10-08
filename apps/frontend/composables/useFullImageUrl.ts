@@ -9,7 +9,12 @@ export function useFullImageUrl() {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path
     }
-    // Otherwise, prepend the Strapi URL
-    return `${config.public.strapiURL}${path}`
+    
+    // if process.env.NODE_ENV is 'production', add the 'public' prefix
+    if (config.public.environment === 'production') {
+      return `${config.public.strapiURL}public/${path}`
+    } else {
+      return `${config.public.strapiURL}${path}`
+    }
   }
 }
