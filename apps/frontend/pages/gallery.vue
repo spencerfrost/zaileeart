@@ -1,24 +1,24 @@
 <template>
-  <div class="bg-memphis-pattern min-h-screen p-8">
-    <h1 class="text-4xl font-memphis text-mimi-pink memphis-text-shadow mb-6">Gallery</h1>
+  <div class="min-h-screen p-8">
+    <h1 class="text-4xl font-sans text-secondary mb-6">Gallery</h1>
     
     <!-- Filtering and Sorting Controls -->
     <div class="mb-6 flex flex-wrap gap-4">
-      <select v-model="filters.year" @change="resetAndFetch" class="p-2 rounded-memphis">
+      <select v-model="filters.year" @change="resetAndFetch" class="p-2 rounded">
         <option value="">All Years</option>
         <option v-for="year in uniqueYears" :key="year" :value="year">{{ year }}</option>
       </select>
-      <select v-model="filters.medium" @change="resetAndFetch" class="p-2 rounded-memphis">
+      <select v-model="filters.medium" @change="resetAndFetch" class="p-2 rounded">
         <option value="">All Mediums</option>
         <option v-for="medium in uniqueMediums" :key="medium" :value="medium">{{ medium }}</option>
       </select>
-      <select v-model="filters.availability" @change="resetAndFetch" class="p-2 rounded-memphis">
+      <select v-model="filters.availability" @change="resetAndFetch" class="p-2 rounded">
         <option value="">All Availabilities</option>
         <option value="Available">Available</option>
         <option value="Sold">Sold</option>
         <option value="On Exhibition">On Exhibition</option>
       </select>
-      <select v-model="sortBy" @change="resetAndFetch" class="p-2 rounded-memphis">
+      <select v-model="sortBy" @change="resetAndFetch" class="p-2 rounded">
         <option value="">Sort By</option>
         <option value="priceAsc">Price: Low to High</option>
         <option value="priceDesc">Price: High to Low</option>
@@ -37,7 +37,7 @@
           <template #default="{ item }">
             <NuxtLink 
               :to="`/artworks/${item.id}`"
-              class="block overflow-hidden rounded-memphis transition-transform duration-300 hover:scale-105"
+              class="block overflow-hidden rounded transition-transform duration-300 hover:scale-105"
             >
               <div class="relative">
                 <img 
@@ -46,7 +46,7 @@
                   class="w-full h-auto object-cover"
                 >
                 <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <h2 class="text-white text-xl font-memphis text-center">{{ item.name }}</h2>
+                  <h2 class="text-white text-xl font-sans text-center">{{ item.name }}</h2>
                 </div>
               </div>
             </NuxtLink>
@@ -56,13 +56,13 @@
     </ClientOnly>
 
     <div v-if="pending" class="text-center mt-4">
-      <p class="text-2xl font-memphis text-air-blue memphis-text-shadow">Loading artworks...</p>
+      <p class="text-2xl font-sans text-accent">Loading artworks...</p>
     </div>
     <div v-if="!pending && !canLoadMore" class="text-center mt-4">
-      <p class="text-2xl font-memphis text-air-blue memphis-text-shadow">No more artworks to load.</p>
+      <p class="text-2xl font-sans text-accent">No more artworks to load.</p>
     </div>
     <div v-if="!pending && canLoadMore" class="text-center mt-4">
-      <button @click="loadMore" class="bg-dutch-white text-rich-black px-6 py-2 rounded-full hover:bg-air-blue transition-colors">
+      <button @click="loadMore" class="bg-primary text-black px-6 py-2 rounded-full hover:bg-accent transition-colors">
         Load More
       </button>
     </div>

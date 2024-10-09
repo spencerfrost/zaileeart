@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-air-blue p-4">
+  <header class="bg-accent p-4">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold text-white">
         <NuxtLink to="/">Zailee Art</NuxtLink>
@@ -7,7 +7,7 @@
       <nav>
         <ul class="flex space-x-4">
           <li v-for="item in navItems" :key="item.path">
-            <NuxtLink :to="item.path" class="text-white hover:text-dutch-white transition-colors">
+            <NuxtLink :to="item.path" class="text-white hover:text-primary transition-colors">
               {{ item.name }}
             </NuxtLink>
           </li>

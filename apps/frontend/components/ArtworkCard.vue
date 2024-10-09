@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="artwork"
-    class="overflow-hidden bg-white rounded-memphis p-4 memphis-border"
+    class="overflow-hidden bg-white rounded p-4 "
   >
     <div
       v-if="artwork.images && artwork.images.length > 0"
@@ -11,30 +11,30 @@
         v-if="currentImage"
         :src="fullImageUrl(currentImage.url)"
         :alt="artwork.name"
-        class="w-full h-48 object-cover rounded-memphis"
+        class="w-full h-48 object-cover rounded"
       />
       <button
         v-if="artwork.images.length > 1"
         @click="prevImage"
-        class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-dutch-white text-rich-black rounded-full p-2 opacity-75 hover:opacity-100"
+        class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-primary text-black rounded-full p-2 opacity-75 hover:opacity-100"
       >
         ←
       </button>
       <button
         v-if="artwork.images.length > 1"
         @click="nextImage"
-        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-dutch-white text-rich-black rounded-full p-2 opacity-75 hover:opacity-100"
+        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-black rounded-full p-2 opacity-75 hover:opacity-100"
       >
         →
       </button>
     </div>
     <h2
       v-if="artwork.name"
-      class="text-2xl font-memphis text-air-blue memphis-text-shadow mb-2"
+      class="text-2xl font-sans text-accent mb-2"
     >
       {{ artwork.name }}
     </h2>
-    <p v-if="artwork.description" class="text-rich-black mb-2 line-clamp-2">
+    <p v-if="artwork.description" class="text-black mb-2 line-clamp-2">
       {{ artwork.description }}
     </p>
     <div
@@ -59,13 +59,13 @@
         <span class="font-bold">Availability:</span> {{ artwork.availability }}
       </p>
     </div>
-    <p v-if="artwork.price" class="text-mimi-pink font-bold mt-2">
+    <p v-if="artwork.price" class="text-secondary font-bold mt-2">
       Price: {{ formatPrice(artwork.price) }}
     </p>
   </div>
   <div
     v-else
-    class="text-rich-black bg-white rounded-memphis p-4 memphis-border"
+    class="text-black bg-white rounded p-4 "
   >
     <p>Artwork not found.</p>
   </div>

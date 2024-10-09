@@ -1,9 +1,9 @@
 <template>
-  <footer class="bg-air-blue p-8 mt-12">
+  <footer class="bg-accent p-8 mt-12">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between items-center">
         <div class="mb-4 md:mb-0">
-          <h2 class="text-3xl font-memphis text-white memphis-text-shadow">
+          <h2 class="text-3xl font-sans text-white">
             Zailee Art
           </h2>
         </div>
@@ -13,7 +13,7 @@
             <li v-for="link in links" :key="link.to">
               <NuxtLink 
                 :to="link.to" 
-                class="text-white hover:text-dutch-white font-memphis transition-colors duration-300"
+                class="text-white hover:text-primary font-sans transition-colors duration-300"
               >
                 {{ link.text }}
               </NuxtLink>
@@ -29,7 +29,7 @@
             :href="social.url" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="bg-dutch-white text-air-blue p-2 rounded-full hover:memphis-rotate transition-transform duration-300 cursor-pointer"
+            class="bg-primary text-accent p-2 rounded-full cursor-pointer"
           >
             <span class="sr-only">{{ social.name }}</span>
             <div class="w-6 h-6 flex items-center justify-center font-bold">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="mt-8 pt-4 border-t border-white/20 text-center text-white font-memphis">
+      <div class="mt-8 pt-4 border-t border-white/20 text-center text-white font-sans">
         <p>&copy; {{ new Date().getFullYear() }} Zailee Art. All rights reserved.</p>
       </div>
     </div>

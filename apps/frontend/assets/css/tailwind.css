@@ -2,6 +2,78 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@layer base {
+
+  :root {
+    /* Colors */
+    --color-primary: #E8DCB9;
+    --color-secondary: #F2CEE6;
+    --color-accent: #7798AB;
+    --color-background: #f8fafc;
+    --color-black: #0D1B1E;
+  
+    /* Fonts */
+    --font-family-sans: 'Roboto', sans-serif;
+    --font-family-serif: 'Merriweather', serif;
+    --font-family-mono: 'Menlo', monospace;
+  
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+  
+    /* Spacing */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+  
+    /* Border Radius */
+    --border-radius-sm: 0.125rem;
+    --border-radius: 0.25rem;
+    --border-radius-lg: 0.5rem;
+  
+    /* Box Shadow */
+    --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  body {
+    @apply bg-background text-black;
+    font-family: var(--font-family-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  h1 { @apply text-2xl; }
+  h2 { @apply text-xl; }
+  h3 { @apply text-lg; }
+
+}
+
+@layer components {
+  /* You can add component styles here */
+  .btn {
+    @apply px-4 py-2 rounded font-bold;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-opacity-90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-black hover:bg-opacity-90;
+  }
+
+  /* Add more component styles as needed */
+}
+
 @keyframes bg-slide {
   0% {
     background-position: 0 0;

@@ -1,8 +1,8 @@
 <template>
   <div v-if="pending">Loading...</div>
   <div v-else-if="error">Error: {{ error.message }}</div>
-  <div v-else-if="artwork" class="bg-memphis-pattern min-h-screen p-8">
-    <div class="container mx-auto bg-white rounded-memphis p-6">
+  <div v-else-if="artwork" class="min-h-screen p-8">
+    <div class="container mx-auto bg-white rounded p-6">
       <h1 class="text-4xl font-bold mb-4">{{ artwork.name }}</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
@@ -10,7 +10,7 @@
             v-if="artwork.images && artwork.images[0]"
             :src="getFullImageUrl(artwork.images[0].url)" 
             :alt="artwork.name"
-            class="w-full h-auto rounded-memphis"
+            class="w-full h-auto rounded"
           >
         </div>
         <div>
