@@ -1,0 +1,17 @@
+# Ignore artifacts:
+dist
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+
+# Ignore Nuxt auto-generated files
+.nuxt
+
+# Ignore Strapi auto-generated files
+apps/backend/src/*
+apps/backend/.strapi/*
+apps/backend/types/*
+
+pnpm-lock.yaml

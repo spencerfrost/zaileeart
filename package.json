@@ -2,6 +2,10 @@
   "name": "zaileeart",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev:frontend": "pnpm --filter frontend dev",
     "dev:backend": "pnpm --filter backend develop",
@@ -9,6 +13,25 @@
     "build:backend": "pnpm --filter backend build",
     "start:frontend": "pnpm --filter frontend start",
     "start:backend": "pnpm --filter backend start",
-    "clean": "pnpm --filter frontend cleanup"
+    "clean": "pnpm --filter frontend cleanup",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:diff": "prettier --list-different ."
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,css,scss,json,md}": "prettier --write",
+    "*.{js,ts,vue}": "eslint --fix"
+  },
+  "devDependencies": {
+    "@zaileeart/eslint-config": "workspace:^",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
   }
 }

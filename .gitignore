@@ -57,3 +57,6 @@ coverage/
 *.seed
 *.pid.lock
 generate_tree.py
+
+# ESLint
+.eslintcache
