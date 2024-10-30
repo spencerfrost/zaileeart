@@ -7,10 +7,10 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      # - restore_cache:
-      #     name: Restore pnpm Package Cache
-      #     keys:
-      #       - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - restore_cache:
+          name: Restore pnpm Package Cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Install pnpm package manager
           command: |
@@ -54,10 +54,10 @@ jobs:
       - run:
           name: Deploy to Server
           command: |
-            rsync -avzc /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/frontend/
-            rsync -avzc /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
-            rsync -avzc /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:/var/www/zaileeart/backend/
-            ssh $SERVER_USER@$SERVER_IP 'bash -l -c "cd /var/www/zaileeart/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --production || npm install --production && pm2 restart /var/www/zaileeart/ecosystem.config.cjs && sudo systemctl restart nginx"'
+            rsync -avzc /home/circleci/project/apps/frontend/.output/ $SERVER_USER@$SERVER_IP:/var/www/zailee/frontend/
+            rsync -avzc /home/circleci/project/apps/backend/dist/ $SERVER_USER@$SERVER_IP:/var/www/zailee/backend/
+            rsync -avzc /home/circleci/project/apps/backend/package.json /home/circleci/project/pnpm-lock.yaml $SERVER_USER@$SERVER_IP:/var/www/zailee/backend/
+            ssh $SERVER_USER@$SERVER_IP 'bash -l -c "cd /var/www/zailee/backend && command -v pnpm >/dev/null 2>&1 && pnpm install --production || npm install --production && pm2 restart /var/www/zailee/ecosystem.config.cjs && sudo systemctl restart nginx"'
 
 workflows:
   build-and-deploy:
