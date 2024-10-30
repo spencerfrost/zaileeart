@@ -12,7 +12,7 @@ export default [
     name: 'strapi::cors',
     config: {
       headers: '*',
-      origin: ['https://zaileeart.mrspinn.ca']
+      origin: ['https://zailee.ca']
     }
   }
 ];

@@ -4,5 +4,5 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  url: env('PUBLIC_URL', 'https://zaileeart.mrspinn.ca/server'),
+  url: env('PUBLIC_URL', 'https://zailee.ca/server'),
 });
