@@ -7,10 +7,10 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - restore_cache:
-          name: Restore pnpm Package Cache
-          keys:
-            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      # - restore_cache:
+      #     name: Restore pnpm Package Cache
+      #     keys:
+      #       - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Install pnpm package manager
           command: |
