@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
+  devServer: {
+    port: 3002,
+    https: false,
+  },
   ssr: true,
   modules: [
     '@pinia/nuxt',
@@ -10,7 +14,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       strapiURL: process.env.NUXT_PUBLIC_STRAPI_URL ?? 'https://zailee.ca/server',
-      environment: process.env.NODE_ENV ?? 'development',
+      environment: process.env.NODE_ENV ?? 'production',
     },
   },
   build: {
@@ -19,7 +23,7 @@ export default defineNuxtConfig({
   components: true,
   app: {
     head: {
-      title: 'Artist Portfolio',
+      title: 'Zai Lee Artist Portfolio',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

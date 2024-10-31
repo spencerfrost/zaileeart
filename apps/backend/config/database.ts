@@ -6,7 +6,7 @@ export default ({ env }) => {
       connection: {
         host: env('DATABASE_HOST', '192.168.50.6'),
         port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME', 'zaileeart_dev'),
+        database: env('DATABASE_NAME', 'zaileeart_prod'),
         user: env('DATABASE_USERNAME', 'spencer'),
         password: env('DATABASE_PASSWORD', ''),
         ssl: env.bool('DATABASE_SSL', true) && {
