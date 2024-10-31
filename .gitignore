@@ -57,3 +57,5 @@ coverage/
 *.seed
 *.pid.lock
 generate_tree.py
+
+apps/backend/config/env/development
