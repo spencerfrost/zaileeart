@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     '/': { swr: 3600 }, // Cache for 1 hour
     '/about': { swr: 3600 },
     '/gallery': { swr: 1800 }, // Cache for 30 minutes
-    '/artworks/**': { swr: true }, // Use default SWR behavior
+    '/artwork/**': { swr: true }, // Use default SWR behavior
   },
   nitro: {
     routeRules: {

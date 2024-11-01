@@ -36,7 +36,7 @@
         >
           <template #default="{ item }">
             <NuxtLink 
-              :to="`/artworks/${item.id}`"
+              :to="`/artwork/${item.documentId}`"
               class="block overflow-hidden rounded transition-transform duration-300 hover:scale-105"
             >
               <div class="relative">

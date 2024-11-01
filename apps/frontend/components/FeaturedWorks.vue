@@ -11,7 +11,7 @@
       <NuxtLink 
         v-for="artwork in artworks" 
         :key="artwork.id" 
-        :to="{ path: `/artworks/${artwork.id}` }"
+        :to="{ path: `/artwork/${artwork.documentId}` }"
         class="hover:bg-secondary rounded-2xl p-4 text-black bg-primary transition-colors"
       >
         <img 
