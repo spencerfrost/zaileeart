@@ -59,7 +59,7 @@
           >
             <template #default="{ item }">
               <NuxtLink 
-                :to="`/artworks/${item.documentId}`"
+                :to="`/artwork/${item.documentId}`"
                 class="block overflow-hidden rounded-memphis transition-transform duration-300 hover:scale-105"
               >
                 <div class="relative">
