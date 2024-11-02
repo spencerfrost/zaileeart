@@ -12,6 +12,10 @@
         <option value="">All Mediums</option>
         <option v-for="medium in uniqueMediums" :key="medium" :value="medium">{{ medium }}</option>
       </select>
+      <select v-model="filters.category" @change="resetAndFetch" class="p-2 rounded">
+        <option value="">All Categories</option>
+        <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+      </select>
       <select v-model="filters.availability" @change="resetAndFetch" class="p-2 rounded">
         <option value="">All Availabilities</option>
         <option value="Available">Available</option>
@@ -28,7 +32,7 @@
     </div>
 
     <ClientOnly>
-      <div v-if="!pending">
+      <div v-if="!loadingArtworks">
         <masonry-wall 
           :items="artworks.value" 
           :column-width="300"
@@ -55,13 +59,13 @@
       </div>
     </ClientOnly>
 
-    <div v-if="pending" class="text-center mt-4">
+    <div v-if="loadingArtworks" class="text-center mt-4">
       <p class="text-2xl font-sans text-accent">Loading artworks...</p>
     </div>
-    <div v-if="!pending && !canLoadMore" class="text-center mt-4">
+    <div v-if="!loadingArtworks && !canLoadMore" class="text-center mt-4">
       <p class="text-2xl font-sans text-accent">No more artworks to load.</p>
     </div>
-    <div v-if="!pending && canLoadMore" class="text-center mt-4">
+    <div v-if="!loadingArtworks && canLoadMore" class="text-center mt-4">
       <button @click="loadMore" class="bg-primary text-black px-6 py-2 rounded-full hover:bg-accent transition-colors">
         Load More
       </button>
@@ -83,13 +87,17 @@ const pageSize = 12;
 const filters = ref({
   year: '',
   medium: '',
-  availability: ''
+  availability: '',
+  category: ''
 });
 const sortBy = ref('');
 
 const artworks = ref([]);
 const canLoadMore = ref(true);
-const pending = ref(false);
+const loadingArtworks = ref(false);
+
+const categories = ref([]);
+const loadingCategories = ref(false);
 
 const uniqueYears = computed(() => {
   if (!artworks.length) return [];
@@ -115,6 +123,9 @@ const filteredAndSortedArtworks = computed(() => {
   if (filters.availability) {
     filtered = filtered.filter(a => a.availability === filters.availability);
   }
+  if (filters.category) {
+    filtered = filtered.filter(a => a.category === filters.category);
+  }
 
   if (sortBy === 'priceAsc') {
     filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
@@ -129,8 +140,20 @@ const filteredAndSortedArtworks = computed(() => {
   return filtered;
 });
 
+async function fetchCategories() {
+  loadingCategories.value = true;
+  try {
+    const { data: categories } = await strapi.find('categories');
+    categories.value = categories;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  } finally {
+    loadingCategories.value = false;
+  }
+}
+
 async function fetchArtworks() {
-  pending.value = true;
+  loadingArtworks.value = true;
   try {
     const { data: newArtworks } = await strapi.find('artworks', {
       populate: '*',
@@ -141,7 +164,8 @@ async function fetchArtworks() {
       filter: {
         ...(filters.value.year && { year: filters.value.year }),
         ...(filters.value.medium && { medium: filters.value.medium }),
-        ...(filters.value.availability && { availability: filters.value.availability })
+        ...(filters.value.availability && { availability: filters.value.availability }),
+        ...(filters.value.category && { category: filters.value.category })
       },
       sort: sortBy.value ? [sortBy.value] : undefined,
     });
@@ -156,7 +180,7 @@ async function fetchArtworks() {
   } catch (error) {
     console.error('Error fetching artworks:', error);
   } finally {
-    pending.value = false;
+    loadingArtworks.value = false;
   }
 }
 
@@ -167,11 +191,12 @@ function resetAndFetch() {
 }
 
 function loadMore() {
-  if (pending.value || !canLoadMore.value) return;
+  if (loadingArtworks.value || !canLoadMore.value) return;
   page.value++;
   fetchArtworks();
 }
 
 // Initial fetch
 fetchArtworks();
+fetchCategories();
 </script>
