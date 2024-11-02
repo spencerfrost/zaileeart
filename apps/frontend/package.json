@@ -11,7 +11,9 @@
     "cleanup": "nuxt cleanup"
   },
   "dependencies": {
+    "@nuxtjs/strapi": "npm:@nuxtjs/strapi-edge@latest",
     "@pinia/nuxt": "^0.5.4",
+    "pinia": "^2.0.0",
     "@yeger/vue-masonry-wall": "^5.0.15",
     "lucide-vue-next": "^0.451.0",
     "nuxt": "^3.13.0",

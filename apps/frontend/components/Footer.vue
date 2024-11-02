@@ -3,16 +3,14 @@
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between items-center">
         <div class="mb-4 md:mb-0">
-          <h2 class="text-3xl font-sans text-white">
-            Zailee Art
-          </h2>
+          <h2 class="text-3xl font-sans text-white">Zailee Art</h2>
         </div>
 
         <nav class="mb-4 md:mb-0">
           <ul class="flex flex-wrap gap-4">
             <li v-for="link in links" :key="link.to">
-              <NuxtLink 
-                :to="link.to" 
+              <NuxtLink
+                :to="link.to"
                 class="text-white hover:text-primary font-sans transition-colors duration-300"
               >
                 {{ link.text }}
@@ -22,12 +20,12 @@
         </nav>
 
         <div class="flex gap-4">
-          <a 
+          <a
             v-if="artistProfile?.socials.length > 0"
-            v-for="social in artistProfile.socials" 
+            v-for="social in artistProfile.socials"
             :key="social.name"
-            :href="social.url" 
-            target="_blank" 
+            :href="social.url"
+            target="_blank"
             rel="noopener noreferrer"
             class="bg-primary text-accent p-2 rounded-full cursor-pointer"
           >
@@ -39,39 +37,44 @@
         </div>
       </div>
 
-      <div class="mt-8 pt-4 border-t border-white/20 text-center text-white font-sans">
-        <p>&copy; {{ new Date().getFullYear() }} Zailee Art. All rights reserved.</p>
+      <div
+        class="mt-8 pt-4 border-t border-white/20 text-center text-white font-sans"
+      >
+        <p>
+          &copy; {{ new Date().getFullYear() }} Zailee Art. All rights reserved.
+        </p>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-vue-next';
-import { useStrapi } from '~/composables/useStrapi';
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-vue-next";
 
 const strapi = useStrapi();
-const { data: artistProfile } = await strapi.find('artist-profile', { populate: "*" });
+const { data: artistProfile } = await strapi.find("artist-profile", {
+  populate: "*",
+});
 
 const links = [
-  { to: '/', text: 'Home' },
-  { to: '/gallery', text: 'Gallery' },
-  { to: '/about', text: 'About' },
-  { to: '/contact', text: 'Contact' },
+  { to: "/", text: "Home" },
+  { to: "/gallery", text: "Gallery" },
+  { to: "/about", text: "About" },
+  { to: "/contact", text: "Contact" },
 ];
 
 const getIcon = (link) => {
-  const socialLinkSplit = link.split('.');
-  if (socialLinkSplit.includes('instagram')) {
+  const socialLinkSplit = link.split(".");
+  if (socialLinkSplit.includes("instagram")) {
     return Instagram;
-  } else if (socialLinkSplit.includes('facebook')) {
+  } else if (socialLinkSplit.includes("facebook")) {
     return Facebook;
-  } else if (socialLinkSplit.includes('twitter')) {
+  } else if (socialLinkSplit.includes("twitter")) {
     return Twitter;
-  } else if (socialLinkSplit.includes('linkedin')) {
+  } else if (socialLinkSplit.includes("linkedin")) {
     return Linkedin;
   }
-  
-  return '';
+
+  return "";
 };
 </script>

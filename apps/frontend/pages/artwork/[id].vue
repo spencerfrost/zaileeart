@@ -29,7 +29,6 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { useFullImageUrl } from '~/composables/useFullImageUrl';
-import { useStrapi } from '~/composables/useStrapi';
 
 const route = useRoute();
 const getFullImageUrl = useFullImageUrl();

@@ -72,7 +72,6 @@
 
 <script setup>
 import { useFullImageUrl } from "~/composables/useFullImageUrl";
-import { useStrapi } from "~/composables/useStrapi";
 
 const getFullImageUrl = useFullImageUrl();
 const { find } = useStrapi();
