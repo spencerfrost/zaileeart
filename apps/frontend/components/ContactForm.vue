@@ -39,7 +39,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStrapi } from '~/composables/useStrapi';
 
 const strapi = useStrapi()
 const form = ref({

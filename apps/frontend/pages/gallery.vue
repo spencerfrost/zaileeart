@@ -1,202 +1,188 @@
 <template>
   <div class="min-h-screen p-8">
-    <h1 class="text-4xl font-sans text-secondary mb-6">Gallery</h1>
+    <h1 class="text-4xl font-memphis text-memphis-pink memphis-text-shadow mb-6">Gallery</h1>
     
     <!-- Filtering and Sorting Controls -->
-    <div class="mb-6 flex flex-wrap gap-4">
-      <select v-model="filters.year" @change="resetAndFetch" class="p-2 rounded">
-        <option value="">All Years</option>
-        <option v-for="year in uniqueYears" :key="year" :value="year">{{ year }}</option>
-      </select>
-      <select v-model="filters.medium" @change="resetAndFetch" class="p-2 rounded">
-        <option value="">All Mediums</option>
-        <option v-for="medium in uniqueMediums" :key="medium" :value="medium">{{ medium }}</option>
-      </select>
-      <select v-model="filters.category" @change="resetAndFetch" class="p-2 rounded">
-        <option value="">All Categories</option>
-        <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
-      </select>
-      <select v-model="filters.availability" @change="resetAndFetch" class="p-2 rounded">
-        <option value="">All Availabilities</option>
-        <option value="Available">Available</option>
-        <option value="Sold">Sold</option>
-        <option value="On Exhibition">On Exhibition</option>
-      </select>
-      <select v-model="sortBy" @change="resetAndFetch" class="p-2 rounded">
-        <option value="">Sort By</option>
-        <option value="priceAsc">Price: Low to High</option>
-        <option value="priceDesc">Price: High to Low</option>
-        <option value="yearDesc">Newest First</option>
-        <option value="yearAsc">Oldest First</option>
-      </select>
-    </div>
-
     <ClientOnly>
-      <div v-if="!loadingArtworks">
-        <masonry-wall 
-          :items="artworks.value" 
-          :column-width="300"
-          :gap="16"
-        >
-          <template #default="{ item }">
-            <NuxtLink 
-              :to="`/artwork/${item.documentId}`"
-              class="block overflow-hidden rounded transition-transform duration-300 hover:scale-105"
-            >
-              <div class="relative">
-                <img 
-                  :src="getFullImageUrl(item.images[0].url)" 
-                  :alt="item.name"
-                  class="w-full h-auto object-cover"
-                >
-                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <h2 class="text-white text-xl font-sans text-center">{{ item.name }}</h2>
-                </div>
-              </div>
-            </NuxtLink>
-          </template>
-        </masonry-wall>
+      <div class="mb-6 flex flex-wrap gap-4">
+        <select v-model="filters.year" class="p-2 rounded-memphis">
+          <option value="">All Years</option>
+          <option v-for="year in uniqueYears" :key="year" :value="year">{{ year }}</option>
+        </select>
+        <select v-model="filters.medium" class="p-2 rounded-memphis">
+          <option value="">All Mediums</option>
+          <option v-for="medium in uniqueMediums" :key="medium" :value="medium">{{ medium }}</option>
+        </select>
+        <select v-model="filters.availability" class="p-2 rounded-memphis">
+          <option value="">All Availabilities</option>
+          <option value="Available">Available</option>
+          <option value="Sold">Sold</option>
+          <option value="On Exhibition">On Exhibition</option>
+        </select>
+        <select v-model="sortBy" class="p-2 rounded-memphis">
+          <option value="">Sort By</option>
+          <option value="price:asc">Price: Low to High</option>
+          <option value="price:desc">Price: High to Low</option>
+          <option value="year:desc">Newest First</option>
+          <option value="year:asc">Oldest First</option>
+        </select>
       </div>
     </ClientOnly>
 
-    <div v-if="loadingArtworks" class="text-center mt-4">
-      <p class="text-2xl font-sans text-accent">Loading artworks...</p>
-    </div>
-    <div v-if="!loadingArtworks && !canLoadMore" class="text-center mt-4">
-      <p class="text-2xl font-sans text-accent">No more artworks to load.</p>
-    </div>
-    <div v-if="!loadingArtworks && canLoadMore" class="text-center mt-4">
-      <button @click="loadMore" class="bg-primary text-black px-6 py-2 rounded-full hover:bg-accent transition-colors">
-        Load More
-      </button>
+    <div class="mt-8">
+      <!-- Loading State -->
+      <div v-if="status === 'pending'" class="text-center">
+        <p class="text-2xl font-memphis text-memphis-blue memphis-text-shadow">
+          Loading artworks...
+        </p>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="text-center text-red-500">
+        <p>Failed to load artworks</p>
+        <button 
+          @click="refresh"
+          class="mt-4 bg-memphis-yellow text-memphis-black px-4 py-2 rounded-full hover:bg-memphis-blue transition-colors"
+        >
+          Try Again
+        </button>
+      </div>
+
+      <!-- Content -->
+      <template v-else>
+        <ClientOnly>
+          <masonry-wall 
+            v-if="artworks?.length"
+            :items="artworks" 
+            :column-width="300"
+            :gap="16"
+          >
+            <template #default="{ item }">
+              <NuxtLink 
+                :to="`/artworks/${item.documentId}`"
+                class="block overflow-hidden rounded-memphis transition-transform duration-300 hover:scale-105"
+              >
+                <div class="relative">
+                  <img 
+                    v-if="item.images?.[0]?.url"
+                    :src="getFullImageUrl(item.images[0].url)" 
+                    :alt="item.name"
+                    class="w-full h-auto object-cover"
+                  >
+                  <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <h2 class="text-white text-xl font-memphis text-center">{{ item.name }}</h2>
+                  </div>
+                </div>
+              </NuxtLink>
+            </template>
+          </masonry-wall>
+
+          <!-- No Results -->
+          <div v-else class="text-center">
+            <p class="text-2xl font-memphis text-memphis-blue memphis-text-shadow">
+              No artworks available.
+            </p>
+          </div>
+        </ClientOnly>
+
+        <!-- Load More -->
+        <div v-if="canLoadMore" class="text-center mt-8">
+          <button 
+            @click="loadMore" 
+            :disabled="isLoadingMore"
+            class="bg-memphis-yellow text-memphis-black px-6 py-2 rounded-full hover:bg-memphis-blue transition-colors disabled:opacity-50"
+          >
+            {{ isLoadingMore ? 'Loading...' : 'Load More' }}
+          </button>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup>
 import MasonryWall from '@yeger/vue-masonry-wall';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useFullImageUrl } from '~/composables/useFullImageUrl';
-import { useStrapi } from '~/composables/useStrapi';
 
-const getFullImageUrl = useFullImageUrl();
-const strapi = useStrapi();
+const getFullImageUrl = useFullImageUrl()
+const { find } = useStrapi()
 
-const page = ref(1);
-const pageSize = 12;
+// State
+const page = ref(1)
+const pageSize = 12
 const filters = ref({
   year: '',
   medium: '',
-  availability: '',
-  category: ''
-});
-const sortBy = ref('');
+  availability: ''
+})
+const sortBy = ref('')
+const isLoadingMore = ref(false)
+const canLoadMore = ref(true)
 
-const artworks = ref([]);
-const canLoadMore = ref(true);
-const loadingArtworks = ref(false);
-
-const categories = ref([]);
-const loadingCategories = ref(false);
-
+// Computed properties for unique values
 const uniqueYears = computed(() => {
-  if (!artworks.length) return [];
-  const years = artworks.flatMap(artwork => artwork.year).filter(Boolean);
-  return [...new Set(years)].sort((a, b) => b - a);
-});
+  if (!artworks.value?.length) return []
+  const years = artworks.value.map(artwork => artwork.year).filter(Boolean)
+  return [...new Set(years)].sort((a, b) => b - a)
+})
 
 const uniqueMediums = computed(() => {
-  if (!artworks.length) return [];
-  const mediums = artworks.flatMap(artwork => artwork.medium).filter(Boolean);
-  return [...new Set(mediums)];
-});
+  if (!artworks.value?.length) return []
+  const mediums = artworks.value.map(artwork => artwork.medium).filter(Boolean)
+  return [...new Set(mediums)]
+})
 
-const filteredAndSortedArtworks = computed(() => {
-  let filtered = artworks;
+// Build query parameters
+const buildQuery = (currentPage = 1) => ({
+  populate: '*',
+  pagination: {
+    page: currentPage,
+    pageSize
+  },
+  filters: {
+    ...(filters.value.year && { year: filters.value.year }),
+    ...(filters.value.medium && { medium: filters.value.medium }),
+    ...(filters.value.availability && { availability: filters.value.availability })
+  },
+  sort: sortBy.value ? [sortBy.value] : ['createdAt:desc']
+})
 
-  if (filters.year) {
-    filtered = filtered.filter(a => a.year == filters.year);
+// Main data fetching
+const { data: artworks, error, status, refresh } = await useAsyncData(
+  'gallery-artworks',
+  () => find('artworks', buildQuery()).then(res => res.data),
+  { 
+    default: () => [] 
   }
-  if (filters.medium) {
-    filtered = filtered.filter(a => a.medium === filters.medium);
-  }
-  if (filters.availability) {
-    filtered = filtered.filter(a => a.availability === filters.availability);
-  }
-  if (filters.category) {
-    filtered = filtered.filter(a => a.category === filters.category);
-  }
+)
 
-  if (sortBy === 'priceAsc') {
-    filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
-  } else if (sortBy === 'priceDesc') {
-    filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
-  } else if (sortBy === 'yearDesc') {
-    filtered.sort((a, b) => (b.year || 0) - (a.year || 0));
-  } else if (sortBy === 'yearAsc') {
-    filtered.sort((a, b) => (a.year || 0) - (b.year || 0));
-  }
+// Watch for filter/sort changes
+watch([filters, sortBy], () => {
+  page.value = 1
+  refresh()
+}, { deep: true })
 
-  return filtered;
-});
+// Load more functionality
+const loadMore = async () => {
+  if (isLoadingMore.value) return
 
-async function fetchCategories() {
-  loadingCategories.value = true;
+  isLoadingMore.value = true
   try {
-    const { data: categories } = await strapi.find('categories');
-    categories.value = categories;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  } finally {
-    loadingCategories.value = false;
-  }
-}
-
-async function fetchArtworks() {
-  loadingArtworks.value = true;
-  try {
-    const { data: newArtworks } = await strapi.find('artworks', {
-      populate: '*',
-      pagination: {
-        page: page.value,
-        pageSize: pageSize
-      },
-      filter: {
-        ...(filters.value.year && { year: filters.value.year }),
-        ...(filters.value.medium && { medium: filters.value.medium }),
-        ...(filters.value.availability && { availability: filters.value.availability }),
-        ...(filters.value.category && { category: filters.value.category })
-      },
-      sort: sortBy.value ? [sortBy.value] : undefined,
-    });
-
-    if (page.value === 1) {
-      artworks.value = newArtworks;
+    const nextPage = page.value + 1
+    const { data: newArtworks } = await find('artworks', buildQuery(nextPage))
+    
+    if (newArtworks.length) {
+      artworks.value = [...artworks.value, ...newArtworks]
+      page.value = nextPage
+      canLoadMore.value = newArtworks.length === pageSize
     } else {
-      artworks.value = [...artworks.value, ...newArtworks];
+      canLoadMore.value = false
     }
-
-    canLoadMore.value = newArtworks.length === pageSize;
-  } catch (error) {
-    console.error('Error fetching artworks:', error);
+  } catch (e) {
+    console.error('Error loading more artworks:', e)
   } finally {
-    loadingArtworks.value = false;
+    isLoadingMore.value = false
   }
 }
-
-function resetAndFetch() {
-  page.value = 1;
-  artworks.value = [];
-  fetchArtworks();
-}
-
-function loadMore() {
-  if (loadingArtworks.value || !canLoadMore.value) return;
-  page.value++;
-  fetchArtworks();
-}
-
-// Initial fetch
-fetchArtworks();
-fetchCategories();
 </script>

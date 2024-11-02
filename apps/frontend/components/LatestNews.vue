@@ -20,8 +20,6 @@
 </template>
 
 <script setup>
-import { useStrapi } from '~/composables/useStrapi';
-
 const strapi = useStrapi();
 
 const { data: blogPosts, status, error } = await strapi.find('blog-posts', {
